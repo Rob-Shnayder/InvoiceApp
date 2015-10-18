@@ -1,0 +1,61 @@
+﻿@model IEnumerable<InvoiceApp.ViewModels.InvoiceListViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Invoices</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div id="content">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.InvoiceCreationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InvoiceDueDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GrossTotal)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InvoiceCreationDate.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InvoiceDueDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GrossTotal)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.InvoiceID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.InvoiceID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.InvoiceID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
