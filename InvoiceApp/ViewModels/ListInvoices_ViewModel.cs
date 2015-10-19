@@ -20,19 +20,20 @@ namespace InvoiceApp.ViewModels
         public string CustomerName { get; set; }
 
         [Display(Name = "Date")]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime InvoiceCreationDate { get; set; }
 
         [Display(Name = "Due Date")]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime InvoiceDueDate { get; set; }
 
         [Display(Name = "Quantity")]
         public int Quantity { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:#,##0.00#}", ApplyFormatInEditMode = true)]
         [Display(Name = "Amount Due")]
         public double GrossTotal { get; set; }
-        
-        [Display(Name = "Sum of all invoices:")]
-        public double AllInvoiceSum { get; set; }
+
 
     }
 }

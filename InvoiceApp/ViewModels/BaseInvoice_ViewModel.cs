@@ -22,21 +22,24 @@ namespace InvoiceApp.ViewModels
         [StringLength(100)]
         public string ProductName { get; set; }
 
-        [Required]
+        
         [DataType(DataType.MultilineText)]
         [Display(Name = "Description")]
-        [StringLength(100)]
+        [StringLength(500)]
         public string ProductDescription { get; set; }
 
         [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
         [Display(Name = "Quantity")]
         public int Quantity { get; set; }
 
         [Required]
+        [DisplayFormat(DataFormatString = "{0:#,##0.00#}", ApplyFormatInEditMode = true)]
         [Display(Name = "Price")]
         public double Price { get; set; }
 
         [Required]
+        [DisplayFormat(DataFormatString = "{0:#,##0.00#}", ApplyFormatInEditMode = true)]
         [Display(Name = "Tax")]
         public double Tax { get; set; }
 

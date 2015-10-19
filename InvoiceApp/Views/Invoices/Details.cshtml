@@ -1,4 +1,4 @@
-﻿@model InvoiceApp.Models.Invoice
+﻿@model InvoiceApp.ViewModels.Invoice_ViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -11,64 +11,84 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.customer.FirstName)
+            @Html.DisplayNameFor(model => model.BaseCustomerViewModel.FirstName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.customer.FirstName)
+            @Html.DisplayFor(model => model.BaseCustomerViewModel.FirstName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.product.Name)
+            @Html.DisplayNameFor(model => model.BaseCustomerViewModel.Email)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.product.Name)
+            @Html.DisplayFor(model => model.BaseCustomerViewModel.Email)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.InvoiceCreationDate)
+            @Html.DisplayNameFor(model => model.BaseInvoiceViewModel.InvoiceDueDate)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.InvoiceCreationDate)
+            @Html.DisplayFor(model => model.BaseInvoiceViewModel.InvoiceDueDate)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.InvoiceDueDate)
+            @Html.DisplayNameFor(model => model.BaseInvoiceViewModel.ProductName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.InvoiceDueDate)
+            @Html.DisplayFor(model => model.BaseInvoiceViewModel.ProductName)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BaseInvoiceViewModel.ProductDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BaseInvoiceViewModel.ProductDescription)
+        </dd>
+
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BaseInvoiceViewModel.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BaseInvoiceViewModel.Price)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BaseInvoiceViewModel.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BaseInvoiceViewModel.Quantity)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Quantity)
+            @Html.DisplayNameFor(model => model.BaseInvoiceViewModel.Tax)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Quantity)
+            @Html.DisplayFor(model => model.BaseInvoiceViewModel.Tax)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Tax)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Tax)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.GrossTotal)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.GrossTotal)
-        </dd>
+
+
+
+
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.InvoiceID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BaseInvoiceViewModel.InvoiceID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

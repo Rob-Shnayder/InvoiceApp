@@ -45,7 +45,9 @@ namespace InvoiceApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Invoice invoice = db.Invoices.Find(id);
+
+            Invoice_ViewModel invoice = RetrieveModelForDisplay(id.Value);  
+            
             if (invoice == null)
             {
                 return HttpNotFound();
@@ -110,31 +112,8 @@ namespace InvoiceApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
 
-            var invoice = (from a in db.Invoices
-                           join b in db.Customers on a.CustomerID equals b.CustomerID
-                           where a.InvoiceID == id
-                          select new Invoice_ViewModel{
-                              BaseCustomerViewModel = new BaseCustomer_ViewModel{
-                                  customerID = a.CustomerID,
-                                  FirstName = a.customer.FirstName,
-                                  LastName = a.customer.LastName,
-                                  Email = a.customer.Email
-                              },
-                              BaseInvoiceViewModel = new BaseInvoice_ViewModel
-                              {
-                                  InvoiceID = a.InvoiceID,
-                                  CustomerID = a.customer.CustomerID,
-                                  InvoiceDueDate = a.InvoiceDueDate,
-                                  Price = a.Price,
-                                  ProductName = a.ProductName,
-                                  ProductDescription = a.ProductDescription,
-                                  Quantity = a.Quantity,
-                                  Tax =  a.Tax
-                              }
-                          }).FirstOrDefault();
-           
+            Invoice_ViewModel invoice = RetrieveModelForDisplay(id.Value);           
             
             if (invoice == null)
             {
@@ -263,7 +242,34 @@ namespace InvoiceApp.Controllers
             return invoice;
         }
 
-
+        private Invoice_ViewModel RetrieveModelForDisplay(int id)
+        {
+            var invoice = (from a in db.Invoices
+                           join b in db.Customers on a.CustomerID equals b.CustomerID
+                           where a.InvoiceID == id
+                           select new Invoice_ViewModel
+                           {
+                               BaseCustomerViewModel = new BaseCustomer_ViewModel
+                               {
+                                   customerID = a.CustomerID,
+                                   FirstName = a.customer.FirstName,
+                                   LastName = a.customer.LastName,
+                                   Email = a.customer.Email
+                               },
+                               BaseInvoiceViewModel = new BaseInvoice_ViewModel
+                               {
+                                   InvoiceID = a.InvoiceID,
+                                   CustomerID = a.customer.CustomerID,
+                                   InvoiceDueDate = a.InvoiceDueDate,
+                                   Price = a.Price,
+                                   ProductName = a.ProductName,
+                                   ProductDescription = a.ProductDescription,
+                                   Quantity = a.Quantity,
+                                   Tax = a.Tax
+                               }
+                           }).FirstOrDefault();
+            return invoice;
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

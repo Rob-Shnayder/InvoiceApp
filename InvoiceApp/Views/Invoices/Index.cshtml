@@ -24,6 +24,9 @@
                 @Html.DisplayNameFor(model => model.InvoiceDueDate)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.CustomerName)
             </th>
             <th>
@@ -39,10 +42,13 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.InvoiceCreationDate.Date)
+                    @Html.DisplayFor(modelItem => item.InvoiceCreationDate)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.InvoiceDueDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CustomerName)
