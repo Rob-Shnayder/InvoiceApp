@@ -13,9 +13,15 @@ namespace InvoiceApp.Controllers
 {
     public class InvoicesController : Controller
     {
-
-        private double WARNING_INVOICE_AMOUNT = 500.00;
-        public static double MAX_INVOICE_AMOUNT = 600.00;
+        //Class Variables
+        public static double WARNING_INVOICE_AMOUNT
+        {
+            get { return 500.00; }
+        }
+        public static double MAX_INVOICE_AMOUNT
+        {
+            get { return 600.00; }
+        }
         private ApplicationDbContext db = new ApplicationDbContext();
 
 
@@ -176,10 +182,12 @@ namespace InvoiceApp.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult GetSumOfInvoice()
+        public ActionResult ManageInvoiceAmount()
         {
-            ViewBag.invoiceSum = db.Invoices.Sum(a => (a.Price * a.Quantity) + a.Tax);
-            return PartialView();
+            ManageInvoiceAmount_ViewModel invoiceAmount = new ManageInvoiceAmount_ViewModel();
+            invoiceAmount.CurrentSum = db.Invoices.Sum(a => (a.Price * a.Quantity) + a.Tax);
+
+            return PartialView(invoiceAmount);
         }
 
         private Customer SetupCustomerObject(Invoice_ViewModel data)

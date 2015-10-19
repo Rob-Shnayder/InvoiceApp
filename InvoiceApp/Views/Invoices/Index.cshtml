@@ -7,68 +7,64 @@
 }
 
 <h2>Invoices</h2>
+<div class="container">
+    <div class="invoiceContent">
 
-<p>
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" }).DisableIf(() => (ViewBag.invoiceSum >= 600.00))
-</p>
+        @{ Html.RenderAction("ManageInvoiceAmount", "Invoices"); }
 
-
-
-<div id="content">
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.InvoiceCreationDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InvoiceDueDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CustomerName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GrossTotal)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
+        <table class="table invoiceTable">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.InvoiceCreationDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.InvoiceDueDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CustomerName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GrossTotal)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.InvoiceID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.InvoiceID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.InvoiceID })
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.InvoiceCreationDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InvoiceDueDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CustomerName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GrossTotal)
+                </th>
+                <th></th>
             </tr>
+
+            @foreach (var item in Model)
+        {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InvoiceCreationDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InvoiceDueDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustomerName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GrossTotal)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.InvoiceID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.InvoiceID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.InvoiceID })
+                    </td>
+                </tr>
         }
 
-    </table>
-   
-</div>
+        </table>
+    </div>
 
-@{ Html.RenderAction("GetSumOfInvoice", "Invoices"); }
+</div>

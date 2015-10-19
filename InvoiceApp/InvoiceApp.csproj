@@ -179,6 +179,7 @@
     <Compile Include="ViewModels\BaseInvoice_ViewModel.cs" />
     <Compile Include="ViewModels\Invoice_ViewModel.cs" />
     <Compile Include="ViewModels\ListInvoices_ViewModel.cs" />
+    <Compile Include="ViewModels\ManageInvoiceAmount_ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -256,7 +257,7 @@
     <Content Include="Views\Invoices\Details.cshtml" />
     <Content Include="Views\Invoices\Edit.cshtml" />
     <Content Include="Views\Invoices\Index.cshtml" />
-    <Content Include="Views\Invoices\GetSumOfInvoice.cshtml" />
+    <Content Include="Views\Invoices\ManageInvoiceAmount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

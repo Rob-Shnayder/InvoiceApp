@@ -1,12 +1,20 @@
-﻿body {
+﻿@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300);
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: #F3F2F1;
 }
+
+/*Set the default font*/
+* {
+    font-family: "Open Sans",sans-serif;
+  }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
-    padding-right: 15px;
+    padding-right: 15px;        
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -23,4 +31,105 @@ textarea {
     max-width: 280px;
 }
 
+
+/*Beginning of custom CSS*/
+div.message {
+  position: relative;
+  padding: 1px 10px 3px 35px;
+  margin: 30px 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
+  background: #BBB;
+  color: #FFF;
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  -ms-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  transition: all .5s ease;
+}
+
+div.message:hover {
+  box-shadow: 0 5px 10px rgba(10, 0, 10, .3);
+  -webkit-filter: brightness(110%);
+}
+
+div.message.information {
+  background: #39B;
+}
+
+div.message.warning {
+  background: #E74;
+}
+
+div.message.success {
+  background: #5A6;
+}
+
+div.message.announcement {
+  background: #EA0;
+}
+
+div.message.error {
+  background: #C43;
+}
+
+/*End of WARNING AND ERROR BOXES*/
+
+.invoiceContent{
+    position: relative;
+    padding: 30px 35px 20px 35px;
+    margin: 30px 10px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+    background: #FFF none repeat scroll 0% 0%;
+    color: #000;
+}
+
+.invoiceSummary{
+    position: relative;
+    float:left;
+    display: block;
+    text-transform: uppercase;
+    color: #B6BCBE;
+    text-align: left;
+    padding-bottom: 8px;
+}
+
+.invoiceSummary .subTitle{
+    position: relative;
+    display: block;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #B6BCBE;
+    text-align: left;
+    padding-bottom: 2px;
+}
+.invoiceSummary .amount{
+    position: relative;
+    display: block;
+    font-size: 40px;
+    color: #E78011;
+    text-transform: uppercase;
+    text-align: left;
+    padding-bottom: 8px;
+    font-weight:200;
+}
+
+.invoiceSummary .currency{
+    color: #B6BCBE;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.invoiceTable{
+    background-color: #FFF;
+    border: 1px solid #D9E1E8;
+    border-radius: 4px;
+    border-collapse: separate;
+    padding: 0px 0px 5px 15px;
+}
+
+.invoiceContent .newInvoiceButton{
+    float:right;
+    margin-right:20px;
+    margin-top:30px;
+}
 
