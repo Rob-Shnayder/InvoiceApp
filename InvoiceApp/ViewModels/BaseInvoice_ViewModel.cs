@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using InvoiceApp.Models;
 
 namespace InvoiceApp.ViewModels
 {
-    public class BaseInvoiceViewModel
+    public class BaseInvoice_ViewModel
     {
-        public int InvoiceID { get; set; }        
+
+        public int InvoiceID { get; set; }
+        public int CustomerID { get; set; }
 
         [Required]
         [Display(Name = "Due Date:")]
@@ -37,5 +40,7 @@ namespace InvoiceApp.ViewModels
         [Display(Name = "Tax")]
         public double Tax { get; set; }
 
+
+        
     }
 }

@@ -1,4 +1,6 @@
-﻿@model IEnumerable<InvoiceApp.ViewModels.InvoiceListViewModel>
+﻿@using InvoiceApp.Helpers;
+@using InvoiceApp.Controllers;
+@model IEnumerable<InvoiceApp.ViewModels.ListInvoices_ViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -7,8 +9,10 @@
 <h2>Invoices</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" }).DisableIf(() => (ViewBag.invoiceSum >= 600.00))
 </p>
+
+
 
 <div id="content">
     <table class="table">
@@ -58,4 +62,7 @@
         }
 
     </table>
+   
 </div>
+
+@{ Html.RenderAction("GetSumOfInvoice", "Invoices"); }

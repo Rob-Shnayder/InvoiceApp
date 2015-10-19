@@ -8,7 +8,7 @@ namespace InvoiceApp.ViewModels
 {
     //Invoice view model used to list all invoices
     //Used in /Invoices/Index
-    public class InvoiceListViewModel
+    public class ListInvoices_ViewModel
     {
         [Key]
         public int InvoiceID { get; set; }
