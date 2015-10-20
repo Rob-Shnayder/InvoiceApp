@@ -29,16 +29,18 @@ namespace InvoiceApp.ViewModels
         public string ProductDescription { get; set; }
 
         [Required]
-        [Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter valid quantity amount")]
         [Display(Name = "Quantity")]
         public int Quantity { get; set; }
 
         [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "Please enter valid price that is greater than 0")]
         [DisplayFormat(DataFormatString = "{0:#,##0.00#}", ApplyFormatInEditMode = true)]
         [Display(Name = "Price")]
         public double Price { get; set; }
 
         [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "Please enter valid tax that is greater than 0")]
         [DisplayFormat(DataFormatString = "{0:#,##0.00#}", ApplyFormatInEditMode = true)]
         [Display(Name = "Tax")]
         public double Tax { get; set; }

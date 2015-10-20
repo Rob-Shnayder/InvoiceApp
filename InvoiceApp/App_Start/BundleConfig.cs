@@ -32,7 +32,7 @@ namespace InvoiceApp
                       "~/Content/invoices.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/CustomInvoiceScripts").Include(
-                      "~/Scripts/Invoicer.js"));
+                      "~/Scripts/CreateInvoice.js"));
 
         }
     }

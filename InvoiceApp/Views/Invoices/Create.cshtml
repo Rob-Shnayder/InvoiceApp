@@ -12,85 +12,129 @@
 <div class="formWrapper">
     @using (Html.BeginForm())
     {
-        @Html.AntiForgeryToken()
-
+        @Html.AntiForgeryToken()       
+        
         <div class="form-horizontal">
+
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.ValidationMessage("CustomerError", new { @class = "text-danger" })
+            
+            <!-- Begin Customer Section -->
+            <div class="Section" id="customerSection">
+                <h4 class="title">Customer Information</h4>            
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.BaseInvoiceViewModel.InvoiceDueDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.BaseInvoiceViewModel.InvoiceDueDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
-                    @Html.ValidationMessageFor(model => model.BaseInvoiceViewModel.InvoiceDueDate, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BaseCustomerViewModel.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.BaseCustomerViewModel.FirstName, new { htmlAttributes = new { @class = "form-control", @placeholder = "First Name" } })
+                        @Html.ValidationMessageFor(model => model.BaseCustomerViewModel.FirstName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BaseCustomerViewModel.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.BaseCustomerViewModel.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Last Name" } })
+                        @Html.ValidationMessageFor(model => model.BaseCustomerViewModel.LastName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BaseCustomerViewModel.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.BaseCustomerViewModel.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email Address" } })
+                        @Html.ValidationMessageFor(model => model.BaseCustomerViewModel.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+            <!-- End Customer Section -->
+
+            <!-- Begin Invoice Section -->
+            <div class="Section" id="invoiceSection">
+
+                <h4 class="title">Invoice Information</h4>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BaseInvoiceViewModel.InvoiceDueDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.BaseInvoiceViewModel.InvoiceDueDate, new { htmlAttributes = new { @class = "form-control datepicker", @placeholder = "Invoice Due Date" } })
+                        @Html.ValidationMessageFor(model => model.BaseInvoiceViewModel.InvoiceDueDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BaseInvoiceViewModel.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.BaseInvoiceViewModel.ProductName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Product Name" } })
+                        @Html.ValidationMessageFor(model => model.BaseInvoiceViewModel.ProductName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BaseInvoiceViewModel.ProductDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.BaseInvoiceViewModel.ProductDescription, new { htmlAttributes = new { @class = "form-control", @placeholder = "Describe the product or service" } })
+                        @Html.ValidationMessageFor(model => model.BaseInvoiceViewModel.ProductDescription, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BaseInvoiceViewModel.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.BaseInvoiceViewModel.Quantity, new { htmlAttributes = new { @class = "form-control", @Value = "1" } })
+                        @Html.ValidationMessageFor(model => model.BaseInvoiceViewModel.Quantity, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BaseInvoiceViewModel.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.BaseInvoiceViewModel.Price, new { htmlAttributes = new { @class = "form-control", @Value = "0.00", @placeholder = "Price" } })
+                        @Html.ValidationMessageFor(model => model.BaseInvoiceViewModel.Price, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BaseInvoiceViewModel.Tax, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.BaseInvoiceViewModel.Tax, new { htmlAttributes = new { @class = "form-control", @Value = "0.00", @placeholder = "Tax Amount" } })
+                        @Html.ValidationMessageFor(model => model.BaseInvoiceViewModel.Tax, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+            <!-- End Customer Section -->
+
+
+            <!-- Begin Summary Section -->
+            <div class="Section" id="summarySection">
+                <h4 class="title">Summary</h4>
+
+                <div class="summary">
+
+                    <div class="item">
+                        <div class="subTitle">Subtotal</div>
+                        <div id="subtotal" class="amount">
+                            $0.00
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="subTitle">Tax</div>
+                        <div id="tax" class="amount">
+                            $0.00
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="subTitle">Total</div>
+                        <div id="total" class="total">
+                            $0.00
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.BaseCustomerViewModel.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.BaseCustomerViewModel.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.BaseCustomerViewModel.FirstName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.BaseCustomerViewModel.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.BaseCustomerViewModel.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.BaseCustomerViewModel.LastName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.BaseCustomerViewModel.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.BaseCustomerViewModel.Email, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.BaseCustomerViewModel.Email, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.BaseInvoiceViewModel.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.BaseInvoiceViewModel.ProductName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.BaseInvoiceViewModel.ProductName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.BaseInvoiceViewModel.ProductDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.BaseInvoiceViewModel.ProductDescription, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.BaseInvoiceViewModel.ProductDescription, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.BaseInvoiceViewModel.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.BaseInvoiceViewModel.Quantity, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.BaseInvoiceViewModel.Quantity, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.BaseInvoiceViewModel.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.BaseInvoiceViewModel.Price, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.BaseInvoiceViewModel.Price, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.BaseInvoiceViewModel.Tax, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.BaseInvoiceViewModel.Tax, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.BaseInvoiceViewModel.Tax, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
+            <!-- End Summary Section -->
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
