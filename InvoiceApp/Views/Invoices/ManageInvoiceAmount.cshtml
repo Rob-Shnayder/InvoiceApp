@@ -3,28 +3,29 @@
 
 @model InvoiceApp.ViewModels.ManageInvoiceAmount_ViewModel
 
-<!--
 
-<div class="announcement message">
-    <h3>Announcement</h3>
-    <p>This is an 'announcement message' div! It is loud and proud to say things that you want people to hear first!</p>
-</div>
-
-<div class="error message">
-    <h3>Error</h3>
-    <p>This is an 'error message' div. It stresses that there is an immediate problem. this should be used sparingly.</p>
-</div>
-
--->
+@if (Model.CurrentSum >= Model.warningAmount_VM && Model.CurrentSum < Model.maxAmount_VM) { 
+    <div class="announcement message">
+        <h3>Approaching Invoice Limit</h3>
+        <p>The current sum of invoices ($@Model.CurrentSum) is approaching the invoice limit of $@Model.maxAmount_VM</p>
+    </div>
+}
+@if (Model.CurrentSum >= Model.maxAmount_VM) {
+    <div class="error message" style="@(Model.CurrentSum >= Model.maxAmount_VM ? "display:block" : "display:none")">
+        <h3>Invoice Limit Reached</h3>
+        <p>The invoice limit of $@Model.maxAmount_VM has been reached. Creating new invoices has been disabled. Please remove invoices to further create new invoices.</p>
+    </div>
+}
 
 
 
 <div class="invoiceSummary col-md-4">
     <div class="subTitle">@Html.DisplayNameFor(model => model.CurrentSum)</div>
-    <div class="amount">$@Html.DisplayFor(model => model.CurrentSum)
+    <div class="amount">
+        $@Html.DisplayFor(model => model.CurrentSum)
         <span class="currency">USD</span>
     </div>
-   
+
 </div>
 
 <div class="newInvoiceButton col-sm-offset-2">

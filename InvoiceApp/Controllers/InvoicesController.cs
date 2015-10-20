@@ -79,19 +79,33 @@ namespace InvoiceApp.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    //Create the customer object and save it to the DB.
-                    //The current implementation only allows for every new invoice to create a new customer                    
+                    //Calculate the total amount of the entered invoice
+                    double amount = (newInvoice.BaseInvoiceViewModel.Price * newInvoice.BaseInvoiceViewModel.Quantity)
+                        + newInvoice.BaseInvoiceViewModel.Tax;                    
+
+                    //Check if the entered amount will not exceed the limit.
+                    if (!ValidateInvoiceEntry(amount))
+                    {
+                        //Calculate what the invoice balance would be if this order would be added.
+                        double newAmount = amount + GetCurrentInvoiceSum();
+
+                        //Throw a validation error that the new invoice exceeds the limit.
+                        ModelState.AddModelError("CustomerError", "Invoice limit exceeded: Adding this order of $" 
+                            + amount + " would create an exceeding invoice balance of $" + newAmount);
+                        return View(newInvoice);
+                    }
+
+                    //Create a customer model object using our viewmodel.                 
                     Customer cust = SetupCustomerObject(newInvoice);
                     db.Customers.Add(cust);  
+
                     //Save the changes here so we can grab the "customerID" of the new entry
                     db.SaveChanges();
-
 
                     //Grab the "customerID" for the foreign key association
                     int customerID = cust.CustomerID;
 
-
-                    //Setup the Invoice object and add it to the db
+                    //Create a invoice model object using our viewmodel.    
                     Invoice invoice = SetupInvoiceObject(newInvoice, customerID);
                     db.Invoices.Add(invoice);
                     db.SaveChanges();
@@ -162,11 +176,14 @@ namespace InvoiceApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Invoice invoice = db.Invoices.Find(id);
+
+            Invoice_ViewModel invoice = RetrieveModelForDisplay(id.Value);
+
             if (invoice == null)
             {
                 return HttpNotFound();
             }
+
             return View(invoice);
         }
 
@@ -175,6 +192,7 @@ namespace InvoiceApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+
             Invoice invoice = db.Invoices.Find(id);
             db.Invoices.Remove(invoice);
             db.SaveChanges();
@@ -278,6 +296,26 @@ namespace InvoiceApp.Controllers
                            }).FirstOrDefault();
             return invoice;
         }
+
+        private bool ValidateInvoiceEntry(double amount)
+        {
+            double curr = GetCurrentInvoiceSum();
+            if ((curr + amount) <= MAX_INVOICE_AMOUNT)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private double GetCurrentInvoiceSum()
+        {
+            return db.Invoices.Sum(a => (a.Price * a.Quantity) + a.Tax);
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

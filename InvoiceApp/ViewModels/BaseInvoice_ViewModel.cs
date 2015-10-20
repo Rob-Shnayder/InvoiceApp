@@ -14,7 +14,7 @@ namespace InvoiceApp.ViewModels
         public int CustomerID { get; set; }
 
         [Required]
-        [Display(Name = "Due Date:")]
+        [Display(Name = "Due Date")]
         public DateTime InvoiceDueDate { get; set; }
         
         [Required]
