@@ -25,6 +25,8 @@ namespace InvoiceApp.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
 
+
+
         // GET: Invoices
         public ActionResult Index()
         {
@@ -129,37 +131,35 @@ namespace InvoiceApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Invoice_ViewModel data)
         {
-            if (ModelState.IsValid)
+            try
             {
-                //Calculate the total amount of the entered invoice
-                double amount = (data.BaseInvoiceViewModel.Price * data.BaseInvoiceViewModel.Quantity)
-                    + data.BaseInvoiceViewModel.Tax;
-
-                //Check if the entered amount will not exceed the limit.
-                if (!ValidateInvoiceEntry(amount))
+                if (ModelState.IsValid)
                 {
-                    //Calculate what the invoice balance would be if this order would be added.
-                    double newAmount = amount + GetCurrentInvoiceSum();
+                    //Calculate the total amount of the entered invoice
+                    double amount = (data.BaseInvoiceViewModel.Price * data.BaseInvoiceViewModel.Quantity)
+                        + data.BaseInvoiceViewModel.Tax;
 
-                    //Throw a validation error that the new invoice exceeds the limit.
-                    ModelState.AddModelError("CustomerError", "Invoice limit exceeded: Adding this order of $"
-                        + amount + " would create an exceeding invoice balance of $" + newAmount);
-                    return View(data);
+                    //Check if the entered amount will not exceed the limit.
+                    if (!ValidateInvoiceEntry(amount))
+                    {
+                        //Calculate what the invoice balance would be if this order would be added.
+                        double newAmount = amount + GetCurrentInvoiceSum();
+
+                        //Throw a validation error that the new invoice exceeds the limit.
+                        ModelState.AddModelError("CustomerError", "Invoice limit exceeded: Adding this order of $"
+                            + amount + " would create an exceeding invoice balance of $" + newAmount);
+                        return View(data);
+                    }
+
+                    //Complete the edit request
+                    ProcessEdit(data);
+
+                    return RedirectToAction("Index");
                 }
-
-                //Get both ID's
-                int customerID = data.BaseInvoiceViewModel.CustomerID;
-                int invoiceID = data.BaseInvoiceViewModel.InvoiceID;
-
-                //Setup the model object to save it in the DB
-                var invoice = SetupInvoiceObject(data, customerID, invoiceID);
-                var customer = SetupCustomerObject(data, customerID);
-
-                db.Entry(invoice).State = EntityState.Modified;
-                db.Entry(customer).State = EntityState.Modified;
-                db.SaveChanges();
-
-                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Edit", "Invoice"));
             }
 
             return View(data);
@@ -173,7 +173,7 @@ namespace InvoiceApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Invoice_ViewModel invoice = GetInvoiceForDisplay(id.Value);
+            ViewInvoice_ViewModel invoice = GetFullInvoiceDetails(id.Value);
 
             if (invoice == null)
             {
@@ -195,6 +195,7 @@ namespace InvoiceApp.Controllers
             return RedirectToAction("Index");
         }
 
+        //Partial View that displays the current sum of invoices and shows a warning/error if it exceeds the limit.
         [ChildActionOnly]
         public ActionResult ManageInvoiceAmount()
         {
@@ -204,6 +205,19 @@ namespace InvoiceApp.Controllers
             return PartialView(invoiceAmount);
         }
 
+        //Partial View that displays the a formatted invoice using customer and invoice data
+        [ChildActionOnly]
+        public ActionResult DisplayFormattedInvoice(ViewInvoice_ViewModel invoice)
+        {
+            if (invoice == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView(invoice);
+        }
+
+        //Uses data that was entered in the viewmodel and sets up and customer object
         private Customer SetupCustomerObject(Invoice_ViewModel data)
         {
             Customer cust = (new Customer
@@ -228,6 +242,7 @@ namespace InvoiceApp.Controllers
             return cust;
         }
 
+        //Uses data that was entered in the viewmodel and sets up and invoice object
         private Invoice SetupInvoiceObject(Invoice_ViewModel data, int customerID)
         {
             Invoice invoice = (new Invoice
@@ -263,7 +278,27 @@ namespace InvoiceApp.Controllers
 
             return invoice;
         }
+        private Invoice SetupInvoiceObject(Invoice_ViewModel data, int customerID, int invoiceID, DateTime createdDate)
+        {
+            Invoice invoice = (new Invoice
+            {
+                CustomerID = customerID,
+                InvoiceID = invoiceID,
+                InvoiceCreationDate = createdDate,
+                InvoiceDueDate = data.BaseInvoiceViewModel.InvoiceDueDate,
+                ProductName = data.BaseInvoiceViewModel.ProductName,
+                ProductDescription = data.BaseInvoiceViewModel.ProductDescription,
+                Price = data.BaseInvoiceViewModel.Price,
+                Quantity = data.BaseInvoiceViewModel.Quantity,
+                Tax = data.BaseInvoiceViewModel.Tax
 
+            });
+
+            return invoice;
+        }
+
+
+        //Gets part of the invoice information from the DB to display in the view model
         private Invoice_ViewModel GetInvoiceForDisplay(int id)
         {
             var invoice = (from a in db.Invoices
@@ -291,8 +326,8 @@ namespace InvoiceApp.Controllers
                                }
                            }).FirstOrDefault();
             return invoice;
-        }
-        
+        }        
+        //Grabs every column for an invoice to display a formatted invoice
         private ViewInvoice_ViewModel GetFullInvoiceDetails(int id)
         {
             var invoice = (from a in db.Invoices
@@ -326,6 +361,8 @@ namespace InvoiceApp.Controllers
             return invoice;
         }
 
+        //Takes in a entered gross amount and 
+        //checks if its addition to the DB would not exceed the limit
         private bool ValidateInvoiceEntry(double amount)
         {
             double curr = GetCurrentInvoiceSum();
@@ -339,10 +376,21 @@ namespace InvoiceApp.Controllers
             }
         }
 
+        //Gets the current sum of invoices for all entries in the DB.
         private double GetCurrentInvoiceSum()
         {
             return db.Invoices.Sum(a => (a.Price * a.Quantity) + a.Tax);
         }
+
+        private DateTime GetInvoiceCreatedDate(int id)
+        {
+            DateTime date = (from e in db.Invoices
+                             where e.InvoiceID == id
+                             select e.InvoiceCreationDate).FirstOrDefault();
+            return date;
+        }
+
+        //Pulls the invoices to display in a list.
         private IEnumerable<ListInvoices_ViewModel> GetAllInvoicesForList()
         {
             var invoices = (from a in db.Invoices
@@ -359,6 +407,8 @@ namespace InvoiceApp.Controllers
 
             return invoices;
         }
+
+        //Takes entered data from the viewmodel and adds an entry to the DB
         private Customer AddCustomerToDB(Invoice_ViewModel data)
         {
             //Create a customer model object using our viewmodel.                 
@@ -372,6 +422,24 @@ namespace InvoiceApp.Controllers
         {
             Invoice invoice = SetupInvoiceObject(data, customerID);
             db.Invoices.Add(invoice);
+            db.SaveChanges();
+        }
+
+        private void ProcessEdit(Invoice_ViewModel data)
+        {
+            //Get both ID's
+            int customerID = data.BaseInvoiceViewModel.CustomerID;
+            int invoiceID = data.BaseInvoiceViewModel.InvoiceID;
+
+            //Get the created date
+            DateTime createdDate =  GetInvoiceCreatedDate(invoiceID);
+
+            //Setup the model object to save it in the DB
+            var invoice = SetupInvoiceObject(data, customerID, invoiceID, createdDate);
+            var customer = SetupCustomerObject(data, customerID);
+
+            db.Entry(invoice).State = EntityState.Modified;
+            db.Entry(customer).State = EntityState.Modified;
             db.SaveChanges();
         }
 

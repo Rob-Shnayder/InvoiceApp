@@ -257,6 +257,7 @@
     <Content Include="Views\Invoices\Edit.cshtml" />
     <Content Include="Views\Invoices\Index.cshtml" />
     <Content Include="Views\Invoices\ManageInvoiceAmount.cshtml" />
+    <Content Include="Views\Invoices\DisplayFormattedInvoice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

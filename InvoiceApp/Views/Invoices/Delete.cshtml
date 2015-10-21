@@ -1,92 +1,25 @@
-﻿@model InvoiceApp.ViewModels.Invoice_ViewModel
+﻿@model InvoiceApp.ViewModels.ViewInvoice_ViewModel
 
 @{
     ViewBag.Title = "Delete";
 }
 
 <h2>Delete An Invoice</h2>
-<div class="formWrapper">
 
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.BaseCustomerViewModel.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BaseCustomerViewModel.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BaseCustomerViewModel.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BaseCustomerViewModel.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BaseInvoiceViewModel.InvoiceDueDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BaseInvoiceViewModel.InvoiceDueDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BaseInvoiceViewModel.ProductName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BaseInvoiceViewModel.ProductName)
-        </dd>
+<div class="container">
+    <div class="formWrapper">
+        @{ Html.RenderAction("DisplayFormattedInvoice", "Invoices", new { invoice = Model }); }
 
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BaseInvoiceViewModel.ProductDescription)
-        </dt>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-        <dd>
-            @Html.DisplayFor(model => model.BaseInvoiceViewModel.ProductDescription)
-        </dd>
+            <div class="form-actions no-color formControls">                
+                @Html.ActionLink("Back to Invoices", "Index")
+                <input type="submit" value="Delete Invoice" class="btn btn-danger pull-right" />
+            </div>
+        }
+    </div>
 
-
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BaseInvoiceViewModel.Price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BaseInvoiceViewModel.Price)
-        </dd>
-
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BaseInvoiceViewModel.Quantity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BaseInvoiceViewModel.Quantity)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BaseInvoiceViewModel.Tax)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BaseInvoiceViewModel.Tax)
-        </dd>
-
-
-
-    </dl>
-
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-danger" /> |
-            @Html.ActionLink("Back to Invoices", "Index")
-        </div>
-    }
 </div>

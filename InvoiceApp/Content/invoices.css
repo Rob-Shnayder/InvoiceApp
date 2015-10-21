@@ -198,7 +198,10 @@ textarea {
     margin-right: 40px;
 }
 
-
+.formControls{
+    margin-bottom:30px;
+    margin-right:50px;
+}
 
 /*Warning and Error messages for invoice limits*/
 div.message {
