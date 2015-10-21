@@ -5,27 +5,65 @@
 }
 
 <h2>Invoice Details</h2>
+<div class="container">
+    <div class="formWrapper">
+        <div class="Section">
 
-<div class="formWrapper">
-    <div class="Section">
-        
-        <div class="viewInvoice">
-            <hr />
-            <div class="dateInfo">
-                <dl class="dl-horizontal">
-                    <dt> Invoice ID:</dt>
-                    <dd> @Html.DisplayFor(model => model.BaseInvoiceViewModel.InvoiceID)</dd>
-
-                    <dt>@Html.DisplayNameFor(model => model.InvoiceCreationDate)</dt>
-                    <dd> @Html.DisplayFor(model => model.InvoiceCreationDate)</dd>
-
-                    <dt>@Html.DisplayNameFor(model => model.BaseInvoiceViewModel.InvoiceDueDate)</dt>
-                    <dd>@Html.DisplayFor(model => model.BaseInvoiceViewModel.InvoiceDueDate)</dd>
-                </dl>
+            <div class="viewInvoice">
                 <hr />
-            </div>
-        </div>
+                <div class="dateInfo col-md-12">
+                    <dl class="dl-horizontal">
+                        <dt> Invoice ID:</dt>
+                        <dd> @Html.DisplayFor(model => model.BaseInvoiceViewModel.InvoiceID)</dd>
 
+                        <dt>Invoice Creation Date:</dt>
+                        <dd> @Html.DisplayFor(model => model.InvoiceCreationDate)</dd>
+
+                        <dt>Invoice Due Date:</dt>
+                        <dd>@Html.DisplayFor(model => model.BaseInvoiceViewModel.InvoiceDueDate)</dd>
+                    </dl>
+                </div>
+                <hr />
+
+                <div class="soldProducts">
+                    <div class="item col-md-3">
+                        <h4 class="title">Item</h4>  
+                        <strong class="productName">@Html.DisplayFor(model => model.BaseInvoiceViewModel.ProductName)</strong>      
+                        <p class="subitem">@Html.DisplayFor(model => model.BaseInvoiceViewModel.ProductDescription)</p>             
+                    </div>
+                    <div class="item col-md-3">
+                        <h4 class="title">Quantity</h4> 
+                        <p class="product">@Html.DisplayFor(model => model.BaseInvoiceViewModel.Quantity)</p>  
+                    </div>
+                    <div class="item col-md-3">
+                        <h4 class="title">Price</h4> 
+                        <p class="product">$@Html.DisplayFor(model => model.BaseInvoiceViewModel.Price)</p>  
+                    </div>
+                    <div class="item col-md-3">
+                        <h4 class="title">Amount</h4> 
+                        <p class="product">$@Html.DisplayFor(model => model.ItemAmount)</p>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="invoiceAmounts col-md-3 pull-right">
+                    <dl class="dl-horizontal">
+                        <dt>Subtotal:</dt>
+                        <dd>$@Html.DisplayFor(model => model.SubTotal)</dd>
+
+                        <dt>Tax:</dt>
+                        <dd>$@Html.DisplayFor(model => model.BaseInvoiceViewModel.Tax)</dd>
+
+                        <dt>Balance Due:</dt>
+                        <dd>$@Html.DisplayFor(model => model.GrossTotal)</dd>
+                    </dl>
+
+                </div>
+
+            </div>
+
+        </div>
     </div>
 </div>
 <p>

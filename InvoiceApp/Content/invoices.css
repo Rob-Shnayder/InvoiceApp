@@ -157,14 +157,47 @@ textarea {
     overflow:hidden;
 }
 
-.dateInfo{    
-    float:right;
-    margin-right: 20px;
+.viewInvoice .dateInfo{    
+    margin-right: 30px;
 }
 
-.dateInfo dt, dd{
+.viewInvoice .dateInfo dt, dd{
     margin-bottom:5px;
 }
+
+.viewInvoice .soldProducts{
+    overflow:hidden;
+}
+
+.viewInvoice .soldProducts .item{
+    display:block;
+    text-align:center;
+}
+.viewInvoice .soldProducts .item .productName{
+    font-size:17px;
+}
+
+.viewInvoice .soldProducts .item .subitem{
+    font-size:14px;
+    margin-top:7px;
+}
+.viewInvoice .soldProducts .title{
+    font-weight:600;
+    margin-bottom:20px;
+    
+}
+
+.viewInvoice .soldProducts .product{
+    font-weight:300;
+    font-size:20px;
+    
+}
+
+.viewInvoice .invoiceAmounts{
+    text-align:center;
+    margin-right: 40px;
+}
+
 
 
 /*Warning and Error messages for invoice limits*/

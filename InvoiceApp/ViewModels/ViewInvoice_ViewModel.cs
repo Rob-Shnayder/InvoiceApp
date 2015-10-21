@@ -14,5 +14,11 @@ namespace InvoiceApp.ViewModels
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime InvoiceCreationDate { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:#,##0.00#}", ApplyFormatInEditMode = true)]
+        public double ItemAmount { get; set; }
+        [DisplayFormat(DataFormatString = "{0:#,##0.00#}", ApplyFormatInEditMode = true)]
+        public double SubTotal { get; set; }
+        [DisplayFormat(DataFormatString = "{0:#,##0.00#}", ApplyFormatInEditMode = true)]
+        public double GrossTotal { get; set; }
     }
 }

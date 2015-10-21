@@ -318,7 +318,10 @@ namespace InvoiceApp.Controllers
                                    Quantity = a.Quantity,
                                    Tax = a.Tax
                                },
-                               InvoiceCreationDate = a.InvoiceCreationDate
+                               InvoiceCreationDate = a.InvoiceCreationDate,
+                               ItemAmount = a.Price * a.Quantity,
+                               SubTotal = a.Price * a.Quantity,
+                               GrossTotal = (a.Price * a.Quantity) + a.Tax
                            }).FirstOrDefault();
             return invoice;
         }
