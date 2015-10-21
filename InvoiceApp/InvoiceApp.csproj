@@ -168,11 +168,9 @@
       <DependentUpon>201510180357103_AddMiddleName.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Invoice.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\BaseCustomer_ViewModel.cs" />
@@ -180,6 +178,7 @@
     <Compile Include="ViewModels\Invoice_ViewModel.cs" />
     <Compile Include="ViewModels\ListInvoices_ViewModel.cs" />
     <Compile Include="ViewModels\ManageInvoiceAmount_ViewModel.cs" />
+    <Compile Include="ViewModels\ViewInvoice_ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

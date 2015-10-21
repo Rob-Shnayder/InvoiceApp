@@ -11,6 +11,15 @@ body {
     font-family: "Open Sans",sans-serif;
   }
 
+/*Turn off default HTML number spinners*/
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -32,7 +41,133 @@ textarea {
 }
 
 
-/*Beginning of custom CSS*/
+
+.formWrapper{
+    background: #FFF none repeat scroll 0% 0%;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);    
+    color: #000;
+    margin: 30px 10px;
+    position: relative;
+    padding: 20px 35px 20px 35px;  
+}
+
+.formWrapper .newInvoiceButton{
+    float:right;
+    margin-right:20px;
+    margin-top:30px;
+}
+
+
+.Section{
+    background: #F8F8F8  none repeat scroll 0% 0%;
+    background-color: #FFF;
+    border: 1px solid #D9E1E8;
+    border-radius: 4px;
+    border-collapse: separate;    
+    margin: 10px 40px 25px 0px;
+    padding: 10px 20px;
+    position: relative;    
+    width: auto;
+}
+
+.Section .title {
+    font-family: "Open Sans",sans-serif;
+    margin: -5px 0px 15px;
+    padding: 10px 0px 0px 10px;
+    
+}
+
+.Section label{
+    font-weight:100;
+}
+
+.Section .summary{
+    display: block;
+    padding: 0px 0px 0px 10px;
+    position: relative;    
+    text-transform: uppercase;
+    text-align: left;    
+}
+
+.Section .summary .item{
+   display:inline-block;
+   margin: 0px 70px 0px 0px;
+}
+
+
+.Section .summary .item .subTitle{
+    color: #929292;
+    font-size: 15px;    
+    padding-bottom: 2px;
+}
+.Section .summary .item .amount{
+    color: #000;         
+    font-size: 25px;
+    font-weight:200;   
+    padding-bottom: 8px;
+}
+
+.Section .summary .item .total{
+    padding-bottom: 8px;
+    font-weight:200;    
+    font-size: 25px;
+    color: #E78011;
+}
+
+
+
+.invoiceSummary{
+    color: #B6BCBE;
+    display: block;
+    float:left;    
+    position: relative;
+    padding-bottom: 8px;
+    text-transform: uppercase;    
+    text-align: left;    
+}
+
+.invoiceSummary .subTitle{
+    color: #B6BCBE;
+    font-size: 18px;    
+    padding-bottom: 2px;
+}
+.invoiceSummary .amount{
+    color: #E78011;
+    font-size: 40px;
+    font-weight:200;
+    padding-bottom: 8px;
+}
+
+.invoiceSummary .currency{
+    color: #B6BCBE;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.invoiceTable{
+    background-color: #FFF;
+    border: 1px solid #D9E1E8;
+    border-radius: 4px;
+    border-collapse: separate;
+    padding: 0px 0px 5px 15px;
+}
+
+.viewInvoice{
+    margin:0;
+    overflow:hidden;
+}
+
+.dateInfo{    
+    float:right;
+    margin-right: 20px;
+}
+
+.dateInfo dt, dd{
+    margin-bottom:5px;
+}
+
+
+/*Warning and Error messages for invoice limits*/
 div.message {
   position: relative;
   padding: 1px 10px 3px 35px;
@@ -74,119 +209,3 @@ div.message.error {
 
 /*End of WARNING AND ERROR BOXES*/
 
-.formWrapper{
-    position: relative;
-    padding: 20px 35px 20px 35px;
-    margin: 30px 10px;
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
-    background: #FFF none repeat scroll 0% 0%;
-    color: #000;
-}
-
-.formWrapper .newInvoiceButton{
-    float:right;
-    margin-right:20px;
-    margin-top:30px;
-}
-
-.invoiceSummary{
-    position: relative;
-    float:left;
-    display: block;
-    text-transform: uppercase;
-    color: #B6BCBE;
-    text-align: left;
-    padding-bottom: 8px;
-}
-
-.invoiceSummary .subTitle{
-    position: relative;
-    display: block;
-    font-size: 18px;
-    text-transform: uppercase;
-    color: #B6BCBE;
-    text-align: left;
-    padding-bottom: 2px;
-}
-.invoiceSummary .amount{
-    position: relative;
-    display: block;
-    font-size: 40px;
-    color: #E78011;
-    text-transform: uppercase;
-    text-align: left;
-    padding-bottom: 8px;
-    font-weight:200;
-}
-
-.invoiceSummary .currency{
-    color: #B6BCBE;
-    font-size: 20px;
-    font-weight: 300;
-}
-
-.invoiceTable{
-    background-color: #FFF;
-    border: 1px solid #D9E1E8;
-    border-radius: 4px;
-    border-collapse: separate;
-    padding: 0px 0px 5px 15px;
-}
-
-
-
-.Section{
-    position: relative;
-    width: auto;
-    margin: 10px 40px 25px 0px;
-    padding: 10px 20px;
-    background-color: #FFF;
-    border: 1px solid #D9E1E8;
-    border-radius: 4px;
-    border-collapse: separate;
-    background: #F8F8F8  none repeat scroll 0% 0%;
-    
-}
-
-.Section .title {
-    margin: -5px 0px 15px;
-    padding: 10px 0px 0px 10px;
-    font-family: "Open Sans",sans-serif;
-}
-
-.Section label{
-    font-weight:100;
-}
-
-.Section .summary{
-    position: relative;
-    display: block;
-    text-transform: uppercase;
-    text-align: left;
-    padding: 0px 0px 0px 10px;
-}
-
-.Section .summary .item{
-   display:inline-block;
-   margin: 0px 70px 0px 0px;
-}
-
-
-.Section .summary .item .subTitle{
-    font-size: 15px;
-    color: #929292;
-    padding-bottom: 2px;
-}
-.Section .summary .item .amount{
-    padding-bottom: 8px;
-    font-weight:200;    
-    font-size: 25px;
-    color: #000;
-}
-
-.Section .summary .item .total{
-    padding-bottom: 8px;
-    font-weight:200;    
-    font-size: 25px;
-    color: #E78011;
-}

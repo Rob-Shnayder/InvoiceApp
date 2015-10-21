@@ -15,6 +15,7 @@ namespace InvoiceApp.ViewModels
 
         [Required]
         [Display(Name = "Due Date")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime InvoiceDueDate { get; set; }
         
         [Required]

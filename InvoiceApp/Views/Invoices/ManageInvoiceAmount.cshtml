@@ -30,7 +30,7 @@
 
 <div class="newInvoiceButton col-sm-offset-2">
     <p>
-        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" }).DisableIf(() => (Model.CurrentSum >= Model.maxAmount_VM))
+        @Html.ActionLink("Create New Invoice", "Create", null, new { @class = "btn btn-primary" }).DisableIf(() => (Model.CurrentSum >= Model.maxAmount_VM))
     </p>
 </div>
 
